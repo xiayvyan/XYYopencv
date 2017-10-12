@@ -86,7 +86,12 @@
     Canny(canny_output, canny_output, 80, 255);
     
     //轮廓拣选
-    _check.setTo(cv::Scalar(0,255,0,0),canny_output);
+//    _check.setTo(cv::Scalar(0,255,0,0),canny_output);
+    // 轮廓粗细
+    std::vector<std::vector<cv::Point>> contours;
+    findContours(canny_output,contours,CV_RETR_EXTERNAL,CV_CHAIN_APPROX_NONE);
+    cv::drawContours(_check, contours, -1, cv::Scalar(0,255,0,0), 2);
+    
     cvtColor(image,image,CV_BGR2RGB);
     cv::rectangle(image, cv::Rect(x,y,w,h), cv::Scalar(0,255,0,0));
 }
